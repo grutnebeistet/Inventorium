@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#5DBCD2</color>
+    <color name="colorPrimaryDark">#455A64</color>
+    <color name="colorAccent">#5DBCD2</color>
+
+    <!-- Editor theme colors -->
+    <color name="editorColorPrimary">#455A64</color>
+    <color name="editorColorPrimaryDark">#263238</color>
+
+    <color name="textColorItemDetails">#B4BAC0</color>
+
+    <color name="transparentBackground">#55000000</color>
+
+</resources>

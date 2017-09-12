@@ -1,0 +1,52 @@
+<resources>
+    <string name="app_name">Inventorium</string>
+
+    <!-- Action bar settings in .CatalogActivity-->
+    <string name="action_insert_dummy">Insert dummy item</string>
+    <string name="action_delete_all">Delete all items</string>
+
+    <!-- Actio bar settings in .EditorActivity -->
+    <string name="action_delete">Delete</string>
+    <string name="action_save">Save</string>
+
+    <!--Toast message for deletion of item -->
+    <string name="editor_item_deletion_fail">"Failed to delete item"</string>
+    <string name="editor_item_deletion_success">"Item deleted"</string>
+
+    <!-- Editor App bar titles -->
+    <string name="editor_title_add_item">Add Item</string>
+    <string name="editor_title_edit_item">Edit Item</string>
+
+    <string name="editor_insert_item_failed">Unable to save Item</string>
+    <string name="editor_insert_item_successful">saved successfully</string>
+
+    <string name="editor_update_pet_failed">Update failed!</string>
+    <string name="editor_update_pet_successful">Item updated</string>
+
+    <!-- Dialog message when user is leaving editor but hasn't saved changes [CHAR LIMIT=NONE] -->
+    <string name="unsaved_changes_dialog_msg">Discard your changes and quit editing?</string>
+
+    <!-- Dialog button text for the option to discard a user's changes [CHAR LIMIT=20] -->
+    <string name="discard">Discard</string>
+
+    <!-- Dialog button text for the option to keep editing the current pet [CHAR LIMIT=20] -->
+    <string name="keep_editing">Keep Editing</string>
+
+    <!-- Dialog message to ask the user to confirm deleting the current pet [CHAR LIMIT=NONE] -->
+    <string name="delete_dialog_msg">Delete this item?</string>
+    <string name="delete_dialog_msg_beyond">ARE YOU REALLY SURE??</string>
+
+    <!-- Dialog button text for the option to confirm deleting the current pet [CHAR LIMIT=20] -->
+    <string name="delete">Delete</string>
+
+    <!-- Dialog button text for the option to cancel deletion of the current pet [CHAR LIMIT=20] -->
+    <string name="cancel">Cancel</string>
+
+    <!-- AlertDialog in catalogactivity-->
+    <string name="alert_dialog_delete_all_msg">Delete all item entries?</string>
+    <string name="alert_dialog_delete_all_button_positive">DELETE</string>
+    <string name="alert_dialog_delete_all_button_negative">NO</string>
+
+    <string name="out_of_stock_list">Out of stock</string>
+
+</resources>

@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.media.ThumbnailUtils;
 import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -85,17 +86,19 @@ public class ItemCursorAdapter extends CursorAdapter {
 
         // Altering coloring in displaying quantity  FORENKLE/BEDRE?
         TextView inStockTv = (TextView) view.findViewById(R.id.in_stock_label_tv);
+        itemQuantity.setTextColor(ContextCompat.getColor(context, R.color.textColorItemDetails));
+        inStockTv.setText("In Stock");
+        inStockTv.setTextColor(ContextCompat.getColor(context, R.color.textColorItemDetails));
         if (quantity < 1) {
             inStockTv.setTextColor(Color.RED);
             inStockTv.setText(R.string.out_of_stock_list);
             itemQuantity.setVisibility(View.INVISIBLE);
         } else if (quantity < 10) {
-            inStockTv.setText("In Stock");
-            inStockTv.setTextColor(Color.parseColor("#455A64"));
+
             itemQuantity.setVisibility(View.VISIBLE);
             itemQuantity.setTextColor(Color.RED);
         } else {
-            itemQuantity.setTextColor(view.getResources().getColor(R.color.editorColorPrimaryDark));
+            itemQuantity.setTextColor(ContextCompat.getColor(context, R.color.editorColorPrimaryDark));
         }
         itemQuantity.setText(Integer.toString(quantity));
 

@@ -1,5 +1,6 @@
 package com.roberts.adrian.inventorium;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.LoaderManager;
@@ -43,11 +44,15 @@ import java.io.FileNotFoundException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.EasyPermissions;
+
 /**
  * Created by Adrian on 05/12/2016.
  */
 
 public class EditorActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+    static final int CAMERA_PERMISSION_REQUEST = 1349;
     private static final int EXISTING_ITEM_LOADER = 0;
     private static final String LOG_TAG = EditorActivity.class.getName();
 
@@ -81,6 +86,9 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         setContentView(R.layout.activity_editor);
         Intent intent = getIntent();
         String appBarTitle = intent.getAction();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            setCameraPermissionRequest();
+        }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_editor);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -99,13 +107,19 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                     public void onClick(View view) {
                         dialog.dismiss();
                         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+                        if (takePictureIntent.resolveActivity(
+                                getPackageManager()) != null &&
+                                EasyPermissions.hasPermissions(EditorActivity.this, Manifest.permission.CAMERA)) {
+
                             startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
                         }
                     }
                 });
+
                 Button album = (Button) dialog.findViewById(R.id.image_album_button);
-                album.setOnClickListener(new View.OnClickListener() {
+                album.setOnClickListener(new View.OnClickListener()
+
+                {
                     @Override
                     public void onClick(View view) {
                         dialog.dismiss();
@@ -121,21 +135,40 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         Log.i(LOG_TAG, "mItemUri:\n\n\n " + mItemUri);
 
         // If we're dealing with adding a new pet
-        if (mItemUri == null) {
+        if (mItemUri == null)
+
+        {
             setTitle(getString(R.string.editor_title_add_item));
             invalidateOptionsMenu(); // calls onPrepareOptionsMenu()
-        } else {
+        } else
+
+        {
             setTitle(appBarTitle);
 
             // create loader only if we are editing a existing pet
             getLoaderManager().initLoader(EXISTING_ITEM_LOADER, null, this);
         }
-        mEditTextItemName = (EditText) findViewById(R.id.editor_item_name);
-        mEditTextItemSupplier = (EditText) findViewById(R.id.editor_item_supplier);
-        mEditTextItemPrice = (EditText) findViewById(R.id.editor_item_price);
+
+        mEditTextItemName = (EditText)
+
+                findViewById(R.id.editor_item_name);
+
+        mEditTextItemSupplier = (EditText)
+
+                findViewById(R.id.editor_item_supplier);
+
+        mEditTextItemPrice = (EditText)
+
+                findViewById(R.id.editor_item_price);
         //   mSpinnerQuantity = (Spinner) findViewById(R.id.editor_item_quantity);
-        mQuantityDisplay = (TextView) findViewById(R.id.editor_item_quantity_tv);
-        mEditItemImage = (ImageView) findViewById(R.id.editor_item_image);
+        mQuantityDisplay = (TextView)
+
+                findViewById(R.id.editor_item_quantity_tv);
+
+        mEditItemImage = (ImageView)
+
+                findViewById(R.id.editor_item_image);
+
         // Getting date
         Date dateObj = new Date();
         dateObj.getTime();
@@ -143,7 +176,9 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         mItemDateAdded = format.format(dateObj);
 
         //  mAddImageBtn = (Button) findViewById(R.id.add_image_btn);
-        mNumberPickerQuantity = (NumberPicker) findViewById(R.id.editor_quantity_numberPicker);
+        mNumberPickerQuantity = (NumberPicker)
+
+                findViewById(R.id.editor_quantity_numberPicker);
         mNumberPickerQuantity.setMinValue(0);
         mNumberPickerQuantity.setMaxValue(30);
         //      mNumberPickerQuantity.setValue(5);
@@ -154,7 +189,9 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         mEditTextItemSupplier.setOnTouchListener(onTouchListener);
         mEditTextItemPrice.setOnTouchListener(onTouchListener);
         mNumberPickerQuantity.setOnTouchListener(onTouchListener);
-        mNumberPickerQuantity.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+        mNumberPickerQuantity.setOnValueChangedListener(new NumberPicker.OnValueChangeListener()
+
+        {
             @Override
             public void onValueChange(NumberPicker numberPicker, int oldValue, int newValue) {
                 // TODO passe på at TV multiplikerer riktig
@@ -164,7 +201,13 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 }
             }
         });
-//        setupSpinner();
+    }
+
+    @AfterPermissionGranted(CAMERA_PERMISSION_REQUEST)
+    private void setCameraPermissionRequest() {
+        if (!EasyPermissions.hasPermissions(getApplicationContext(), Manifest.permission.CAMERA)) {
+            EasyPermissions.requestPermissions(this, "Camera permissions required in order to use your camera to store images", CAMERA_PERMISSION_REQUEST, Manifest.permission.CAMERA);
+        }
     }
 
     @Override
@@ -172,6 +215,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         getMenuInflater().inflate(R.menu.editor_settings_menu, menu);
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
